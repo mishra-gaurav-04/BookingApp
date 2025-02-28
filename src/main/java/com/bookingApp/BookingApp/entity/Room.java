@@ -8,40 +8,43 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "hotel")
-public class Hotel {
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private  Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "hotel_id",nullable = false)
+    private Hotel hotel;
 
     @Column(nullable = false)
-    private String name;
+    private String type;
 
-    @Column
-    private String city;
+    @Column(nullable = false,precision = 10, scale = 2)
+    private BigDecimal basePrice;
+
+    @Column(columnDefinition = "TEXT[]")
+    private String[] amenities;
 
     @Column(columnDefinition = "TEXT[]")
     private String[] photos;
 
-    @Column(columnDefinition = "TEXT[]")
-    private String[] amenities;
+    @Column(nullable = false)
+    private Integer totalCount;
+
+    @Column
+    private Integer capacity;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @Column(nullable = false)
-    private Boolean active;
-
-    @Embedded
-    private HotelContactInfo contactInfo;
-
 }
