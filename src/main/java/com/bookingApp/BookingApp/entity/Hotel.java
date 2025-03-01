@@ -1,14 +1,13 @@
 package com.bookingApp.BookingApp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -40,6 +39,9 @@ public class Hotel {
 
     @Column(nullable = false)
     private Boolean active;
+
+    @OneToMany(mappedBy = "hotel",fetch = FetchType.LAZY)
+    private List<Room> rooms;
 
     @Embedded
     private HotelContactInfo contactInfo;
