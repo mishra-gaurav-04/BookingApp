@@ -35,6 +35,4 @@ public class Guest {
     @Column(nullable = false)
     private Integer age;
 
-    @ManyToMany
-    private Set<Booking> bookings;
 }
